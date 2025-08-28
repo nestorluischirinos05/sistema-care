@@ -337,7 +337,7 @@ const MedicoForm = () => {
                 />
               </Grid>
 
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={6} size={12}>
                 <TextField
                   name="nombre"
                   label="Nombre"
@@ -349,7 +349,7 @@ const MedicoForm = () => {
                   sx={{ backgroundColor: 'white', borderRadius: 1 }}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={6} size={12}>
                 <TextField
                   name="apellido"
                   label="Apellido"
@@ -361,7 +361,7 @@ const MedicoForm = () => {
                   sx={{ backgroundColor: 'white', borderRadius: 1 }}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={6} size={12}>
                 <TextField
                   name="telefono"
                   label="Teléfono"
@@ -372,7 +372,7 @@ const MedicoForm = () => {
                   sx={{ backgroundColor: 'white', borderRadius: 1 }}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={6} size={12}>
                 <FormControl fullWidth required size="small">
                   <InputLabel>Especialidad</InputLabel>
                   <Select
@@ -394,12 +394,12 @@ const MedicoForm = () => {
               <Divider sx={{ my: 2, width: '100%' }} />
 
               {/* Datos de Usuario */}
-              <Grid item xs={12}>
+              <Grid item xs={12} size={8}>
                 <Typography variant="subtitle1" fontWeight="bold" color="primary.main" gutterBottom>
                   🔐 Credenciales de Acceso
                 </Typography>
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} size={12}>
                 <TextField
                   name="correo"
                   label="Correo Electrónico"
@@ -412,7 +412,7 @@ const MedicoForm = () => {
                   sx={{ backgroundColor: 'white', borderRadius: 1 }}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} size={12}>
                 <TextField
                   name="password"
                   label="Contraseña"
