@@ -94,12 +94,12 @@ const MedicoForm = () => {
         });
 
         if (res.data.existe) {
-          setDniError(`DNI ya registrado: ${res.data.nombre_completo}`);
+          setDniError(`CÉDULA ya registrado: ${res.data.nombre_completo}`);
         } else {
           setDniError('');
         }
       } catch (err) {
-        setDniError('Error al verificar el DNI');
+        setDniError('Error al verificar la CÉDULA');
       } finally {
         setLoadingDni(false);
       }
@@ -247,7 +247,7 @@ const MedicoForm = () => {
             <TableHead>
               <TableRow sx={{ backgroundColor: '#1976d2' }}>
                 <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Nombre</TableCell>
-                <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>DNI</TableCell>
+                <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>CÉDULA</TableCell>
                 <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Especialidad</TableCell>
                 <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Teléfono</TableCell>
               </TableRow>
@@ -311,7 +311,7 @@ const MedicoForm = () => {
               <Grid item xs={12}>
                 <TextField
                   name="dni"
-                  label="DNI del Médico"
+                  label="CÉDULA del Médico"
                   fullWidth
                   required
                   value={formData.dni}
