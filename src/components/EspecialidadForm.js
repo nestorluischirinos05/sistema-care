@@ -18,6 +18,7 @@ import {
   Collapse,
   Card,
   CardContent,
+  TablePagination,
 } from '@mui/material';
 import { Add as AddIcon, Delete as DeleteIcon, ExpandMore as ExpandMoreIcon } from '@mui/icons-material';
 import axios from 'axios';
@@ -30,6 +31,9 @@ const EspecialidadForm = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+
 
   // Cargar especialidades al montar
   useEffect(() => {
@@ -84,7 +88,16 @@ const EspecialidadForm = () => {
       setTimeout(() => setError(''), 5000);
     }
   };
+  // Cambiar página
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
 
+  // Cambiar cantidad de filas por página
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0); // Reinicia a la primera página
+  };
   return (
     <Container maxWidth="md" sx={{ mt: 4, mb: 6 }}>
       <Paper
