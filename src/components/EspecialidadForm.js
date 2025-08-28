@@ -15,13 +15,17 @@ import {
   Alert,
   IconButton,
   Tooltip,
+  Collapse,
+  Card,
+  CardContent,
 } from '@mui/material';
-import { Add as AddIcon, Delete as DeleteIcon } from '@mui/icons-material';
+import { Add as AddIcon, Delete as DeleteIcon, ExpandMore as ExpandMoreIcon } from '@mui/icons-material';
 import axios from 'axios';
 import CONFIG from '../config.js';
 
 const EspecialidadForm = () => {
   const [nombre, setNombre] = useState('');
+  const [descripcion, setDescripcion] = useState('');
   const [especialidades, setEspecialidades] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -49,9 +53,13 @@ const EspecialidadForm = () => {
     if (!nombre.trim()) return;
 
     try {
-      const res = await axios.post(`${CONFIG.API_BASE_URL}/api/especialidades/`, { nombre });
+      const res = await axios.post(`${CONFIG.API_BASE_URL}/api/especialidades/`, {
+        nombre,
+        descripcion: descripcion.trim() || null, // Puede ser opcional
+      });
       setEspecialidades([res.data, ...especialidades]);
       setNombre('');
+      setDescripcion('');
       setSuccess('Especialidad registrada exitosamente.');
       setTimeout(() => setSuccess(''), 5000);
     } catch (err) {
@@ -120,7 +128,27 @@ const EspecialidadForm = () => {
             required
             value={nombre}
             onChange={(e) => setNombre(e.target.value)}
-            placeholder="Ej: Cardiología, Pediatría, Dermatología"
+            placeholder="Ej: Cardiología, Pediatría"
+            variant="outlined"
+            margin="normal"
+            sx={{
+              backgroundColor: 'white',
+              borderRadius: 1,
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': { borderColor: '#b3d4fc' },
+                '&:hover fieldset': { borderColor: '#1976d2' },
+                '&.Mui-focused fieldset': { borderColor: '#1976d2' },
+              },
+            }}
+          />
+          <TextField
+            label="Descripción (opcional)"
+            fullWidth
+            multiline
+            rows={3}
+            value={descripcion}
+            onChange={(e) => setDescripcion(e.target.value)}
+            placeholder="Ej: Se enfoca en el diagnóstico y tratamiento de enfermedades del corazón..."
             variant="outlined"
             margin="normal"
             sx={{
@@ -196,6 +224,7 @@ const EspecialidadForm = () => {
               <TableRow sx={{ backgroundColor: '#f5f5f5' }}>
                 <TableCell sx={{ fontWeight: 'bold', color: 'primary.main' }}>ID</TableCell>
                 <TableCell sx={{ fontWeight: 'bold', color: 'primary.main' }}>Nombre</TableCell>
+                <TableCell sx={{ fontWeight: 'bold', color: 'primary.main' }}>Descripción</TableCell>
                 <TableCell sx={{ fontWeight: 'bold', color: 'primary.main' }}>Acciones</TableCell>
               </TableRow>
             </TableHead>
@@ -221,6 +250,22 @@ const EspecialidadForm = () => {
                       }}
                     >
                       {especialidad.nombre.toLowerCase()}
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      sx={{
+                        maxWidth: 300,
+                        whiteSpace: 'nowrap',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        cursor: 'pointer',
+                      }}
+                      title={especialidad.descripcion || 'Sin descripción'}
+                    >
+                      {especialidad.descripcion || 'Sin descripción'}
                     </Typography>
                   </TableCell>
                   <TableCell>
