@@ -183,7 +183,7 @@ const EspecialidadForm = () => {
         </form>
       </Paper>
 
-      {/* Tabla de especialidades */}
+      {/* Tabla de especialidades con paginación */}
       <Paper
         sx={{
           mt: 3,
@@ -219,71 +219,96 @@ const EspecialidadForm = () => {
             <Typography>No hay especialidades registradas.</Typography>
           </Box>
         ) : (
-          <Table>
-            <TableHead>
-              <TableRow sx={{ backgroundColor: '#f5f5f5' }}>
-                <TableCell sx={{ fontWeight: 'bold', color: 'primary.main' }}>ID</TableCell>
-                <TableCell sx={{ fontWeight: 'bold', color: 'primary.main' }}>Nombre</TableCell>
-                <TableCell sx={{ fontWeight: 'bold', color: 'primary.main' }}>Descripción</TableCell>
-                <TableCell sx={{ fontWeight: 'bold', color: 'primary.main' }}>Acciones</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {especialidades.map((especialidad) => (
-                <TableRow
-                  key={especialidad.id}
-                  hover
-                  sx={{
-                    '&:nth-of-type(odd)': { backgroundColor: '#f9f9ff' },
-                    '&:hover': { backgroundColor: '#e3f2fd !important' },
-                  }}
-                >
-                  <TableCell sx={{ fontSize: '0.9rem', color: 'text.secondary' }}>
-                    {especialidad.id}
-                  </TableCell>
-                  <TableCell>
-                    <Typography
-                      sx={{
-                        fontWeight: 500,
-                        color: 'text.primary',
-                        textTransform: 'capitalize',
-                      }}
-                    >
-                      {especialidad.nombre.toLowerCase()}
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography
-                      variant="body2"
-                      color="text.secondary"
-                      sx={{
-                        maxWidth: 300,
-                        whiteSpace: 'nowrap',
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        cursor: 'pointer',
-                      }}
-                      title={especialidad.descripcion || 'Sin descripción'}
-                    >
-                      {especialidad.descripcion || 'Sin descripción'}
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Tooltip title="Eliminar especialidad">
-                      <IconButton
-                        color="error"
-                        size="small"
-                        onClick={() => handleDelete(especialidad.id)}
-                        sx={{ borderRadius: 1 }}
-                      >
-                        <DeleteIcon fontSize="small" />
-                      </IconButton>
-                    </Tooltip>
-                  </TableCell>
+          <>
+            <Table>
+              <TableHead>
+                <TableRow sx={{ backgroundColor: '#f5f5f5' }}>
+                  <TableCell sx={{ fontWeight: 'bold', color: 'primary.main' }}>ID</TableCell>
+                  <TableCell sx={{ fontWeight: 'bold', color: 'primary.main' }}>Nombre</TableCell>
+                  <TableCell sx={{ fontWeight: 'bold', color: 'primary.main' }}>Descripción</TableCell>
+                  <TableCell sx={{ fontWeight: 'bold', color: 'primary.main' }}>Acciones</TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHead>
+              <TableBody>
+                {especialidades
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((especialidad) => (
+                    <TableRow
+                      key={especialidad.id}
+                      hover
+                      sx={{
+                        '&:nth-of-type(odd)': { backgroundColor: '#f9f9ff' },
+                        '&:hover': { backgroundColor: '#e3f2fd !important' },
+                      }}
+                    >
+                      <TableCell sx={{ fontSize: '0.9rem', color: 'text.secondary' }}>
+                        {especialidad.id}
+                      </TableCell>
+                      <TableCell>
+                        <Typography
+                          sx={{
+                            fontWeight: 500,
+                            color: 'text.primary',
+                            textTransform: 'capitalize',
+                          }}
+                        >
+                          {especialidad.nombre.toLowerCase()}
+                        </Typography>
+                      </TableCell>
+                      <TableCell>
+                        <Typography
+                          variant="body2"
+                          color="text.secondary"
+                          sx={{
+                            maxWidth: 300,
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            cursor: 'pointer',
+                          }}
+                          title={especialidad.descripcion || 'Sin descripción'}
+                        >
+                          {especialidad.descripcion || 'Sin descripción'}
+                        </Typography>
+                      </TableCell>
+                      <TableCell>
+                        <Tooltip title="Eliminar especialidad">
+                          <IconButton
+                            color="error"
+                            size="small"
+                            onClick={() => handleDelete(especialidad.id)}
+                            sx={{ borderRadius: 1 }}
+                          >
+                            <DeleteIcon fontSize="small" />
+                          </IconButton>
+                        </Tooltip>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+              </TableBody>
+            </Table>
+
+            {/* Paginación */}
+            <TablePagination
+              component="div"
+              count={especialidades.length}
+              page={page}
+              onPageChange={handleChangePage}
+              rowsPerPage={rowsPerPage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+              labelRowsPerPage="Filas por página"
+              labelDisplayedRows={({ from, to, count }) =>
+                `${from}-${to} de ${count}`
+              }
+              rowsPerPageOptions={[5, 10, 25, 50]}
+              sx={{
+                '.MuiTablePagination-toolbar': { color: '#1976d2' },
+                '.MuiTablePagination-selectLabel, .MuiTablePagination-displayedRows': {
+                  fontSize: '0.9rem',
+                },
+              }}
+            />
+          </>
         )}
       </Paper>
     </Container>
