@@ -23,6 +23,7 @@ import CalendarioCitas from './pages/CalendarioCitas';
 import DashboardMedico from './pages/DashboardMedico';
 import DashboardPaciente from './pages/DashboardPaciente';
 import GestionarAntecedentes from './components/GestionarAntecedentes.js';
+import GestionarConsultorio from './components/GestionarConsultorio';
 import { useMediaQuery, useTheme, Box } from '@mui/material';
 
 function App() {
@@ -81,11 +82,11 @@ function App() {
         return <Navigate to="/dashboard" replace />;
       }
     }
-    
 
-      const handleDrawerToggle = () => {
-        setMobileOpen(!mobileOpen);
-      };
+
+    const handleDrawerToggle = () => {
+      setMobileOpen(!mobileOpen);
+    };
 
     return (
       <>
@@ -94,7 +95,7 @@ function App() {
 
         {/* ✅ Sidebar */}
         <Sidebar onLogout={handleLogout} userRole={userRole} collapsed={collapsed} setCollapsed={setCollapsed} />
-        
+
         {/* ✅ Contenido principal */}
         <Box
           component="main"
@@ -158,6 +159,14 @@ function App() {
             element={
               <ProtectedRoute allowedRoles={['admin']}>
                 <RegistrarUsuario />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/gestionar-consultorio"
+            element={
+              <ProtectedRoute allowedRoles={['admin']}>
+                <GestionarConsultorio />
               </ProtectedRoute>
             }
           />

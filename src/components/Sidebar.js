@@ -59,7 +59,7 @@ export default function Sidebar({ onLogout, userRole, collapsed, setCollapsed })
         color: 'text.primary',
         boxShadow: '0 0 20px rgba(0,0,0,0.08)',
       }}
-     
+
     >
       {/* Encabezado */}
       <Box
@@ -70,9 +70,9 @@ export default function Sidebar({ onLogout, userRole, collapsed, setCollapsed })
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          borderBottom: '1px solid rgba(255,255,255,0.1)',          
+          borderBottom: '1px solid rgba(255,255,255,0.1)',
         }}
-        
+
       >
         <Typography variant="h6" noWrap sx={{ fontWeight: 600 }}>
           {collapsed ? '' : 'Sistema Médico'}
@@ -140,6 +140,35 @@ export default function Sidebar({ onLogout, userRole, collapsed, setCollapsed })
               </ListItemIcon>
               <ListItemText
                 primary="Gestión de Usuarios"
+                primaryTypographyProps={{
+                  fontSize: '0.95rem',
+                  fontWeight: 500,
+                }}
+              />
+            </ListItemButton>
+          )}
+          {/* Gestionar Consultorio (Admin) */}
+          {userRole === 'admin' && !collapsed && (
+            <ListItemButton
+              component={Link}
+              to="/gestionar-consultorio"
+              sx={{
+                px: 3,
+                py: 1.2,
+                color: 'text.secondary',
+                '&:hover': {
+                  backgroundColor: 'rgba(25, 118, 210, 0.08)',
+                  borderLeft: '3px solid #1976d2',
+                  transform: 'translateX(2px)',
+                  transition: 'all 0.2s ease',
+                },
+              }}
+            >
+              <ListItemIcon sx={{ color: '#1976d2', minWidth: 40 }}>
+                <SettingsIcon sx={{ fontSize: 20 }} />
+              </ListItemIcon>
+              <ListItemText
+                primary="Gestionar Consultorio"
                 primaryTypographyProps={{
                   fontSize: '0.95rem',
                   fontWeight: 500,

@@ -32,6 +32,7 @@ import {
 import { Add as AddIcon, Close as CloseIcon } from '@mui/icons-material';
 import axios from 'axios';
 import CONFIG from '../config.js';
+import apiClient from '../services/apiClient';
 
 const MedicoForm = () => {
   const theme = useTheme();
@@ -136,7 +137,7 @@ const MedicoForm = () => {
     setLoadingSubmit(true);
     try {
       // Registrar usuario
-      const userRes = await axios.post(`${CONFIG.API_BASE_URL}/api/registro/`, {
+      const userRes = await apiClient.post('/api/registro/', {
         correo: formData.correo,
         nombre: formData.nombre,
         apellido: formData.apellido,
@@ -145,7 +146,7 @@ const MedicoForm = () => {
       });
 
       // Registrar médico
-      const medicoRes = await axios.post(`${CONFIG.API_BASE_URL}/api/medicos/`, {
+      const medicoRes = await apiClient.post('/api/medicos/', {
         usuario: userRes.data.user.id,
         nombre: formData.nombre,
         apellido: formData.apellido,

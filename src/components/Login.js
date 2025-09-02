@@ -76,6 +76,11 @@ const Login = ({ onLogin }) => {
       // Guardar tokens y datos del usuario
       localStorage.setItem('access_token', response.data.access);
       localStorage.setItem('refresh_token', response.data.refresh);
+      localStorage.setItem('user_data', JSON.stringify({
+        nombre: response.data.nombre,
+        apellido: response.data.apellido,
+        rol_codigo: response.data.rol_codigo
+      }));
 
       const userDataToStore = {
         nombre: response.data.nombre || '',
@@ -119,7 +124,7 @@ const Login = ({ onLogin }) => {
   };
 
   return (
-    <Container component="main" 
+    <Container component="main"
       maxWidth="xs"
       sx={{
         display: 'flex',
